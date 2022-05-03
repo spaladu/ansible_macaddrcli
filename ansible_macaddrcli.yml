@@ -1,0 +1,19 @@
+---
+- name: "Get MAC Adress vendor info"
+  hosts: localhost
+  connection: local
+  vars:
+    - api_key: "XXXX-YOUR API KEY-XXXX"
+    - mac_address: "{{ macaddr }}"
+
+  tasks:
+  - name: "Get API response"
+    uri:
+      method: GET
+      url: "https://api.macaddress.io/v1?apiKey={{ api_key }}&output=vendor&search={{ mac_address }}"
+      return_content: yes
+    register: content
+
+  - name: debug
+    debug:
+      var: content.content
